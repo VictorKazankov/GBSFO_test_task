@@ -1,2 +1,27 @@
+import json
+
+from requests import Response
+
+
 class Assertions:
-    pass
+    @staticmethod
+    def assert_code_status(response: Response, expected_status_code):
+        assert response.status_code == expected_status_code, \
+            f"Unexpected status code!. Expected: {expected_status_code}.Actual: {response.status_code}"
+
+    @staticmethod
+    def assert_message_response(response: Response, expected_message):
+        response_text = json.loads(response.text)
+        assert response_text["message"] == expected_message
+
+    @staticmethod
+    def assert_name_repositories(response: Response, expected_repositories):
+        response_text = json.loads(response.text)
+        name_repositories = [rep["name"] for rep in response_text]
+        assert sorted(name_repositories) == sorted(expected_repositories)
+
+    @staticmethod
+    def assert_name_branches(response: Response, expected_branches):
+        response_text = json.loads(response.text)
+        name_branches = [br["name"] for br in response_text]
+        assert sorted(name_branches) == sorted(expected_branches)

@@ -5,12 +5,12 @@ from libs.logger import Logger
 
 class ApiService:
     @staticmethod
-    def get(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None, expected_status=200):
-        return ApiService._send(endpoint, data, headers, cookies, "GET", expected_status)
+    def get(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        return ApiService._send(endpoint, data, headers, cookies, "GET")
 
     #################
     @staticmethod
-    def _send(endpoint: str, data: dict, headers: dict, cookies: dict, method: str, expected_status):
+    def _send(endpoint: str, data: dict, headers: dict, cookies: dict, method: str):
 
         endpoint_url = f"https://api.github.com{endpoint}"
 
@@ -28,8 +28,4 @@ class ApiService:
 
         Logger.add_response(response)
 
-        assert response.status_code == expected_status, f"Status code error: Expected:{expected_status};" \
-                                                        f" Actual:{response.status_code}"
-
         return response
-
