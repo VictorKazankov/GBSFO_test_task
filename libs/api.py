@@ -6,31 +6,30 @@ from libs.logger import Logger
 class ApiService:
     @staticmethod
     def get(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None, expected_status=200):
-        return _send(endpoint, data, headers, cookies, "GET", expected_status)
+        return ApiService._send(endpoint, data, headers, cookies, "GET", expected_status)
 
     #################
+    @staticmethod
+    def _send(endpoint: str, data: dict, headers: dict, cookies: dict, method: str, expected_status):
 
+        endpoint_url = f"https://api.github.com{endpoint}"
 
-def _send(endpoint: str, data: dict, headers: dict, cookies: dict, method: str, expected_status):
+        if headers is None:
+            headers = {}
+        if cookies is None:
+            cookies = {}
 
-    endpoint_url = f"https://api.github.com{endpoint}"
+        Logger.add_request(endpoint_url, data, headers, cookies, method)
 
-    if headers is None:
-        headers = {}
-    if cookies is None:
-        cookies = {}
+        if method == 'GET':
+            response = requests.get(endpoint_url, params=data, headers=headers, cookies=cookies)
+        else:
+            raise Exception(f"Bad HTTP method '{method}' was received")
 
-    Logger.add_request(endpoint_url, data, headers, cookies, method)
+        Logger.add_response(response)
 
-    if method == 'GET':
-        response = requests.get(endpoint_url, params=data, headers=headers, cookies=cookies)
-    else:
-        raise Exception(f"Bad HTTP method '{method}' was received")
+        assert response.status_code == expected_status, f"Status code error: Expected:{expected_status};" \
+                                                        f" Actual:{response.status_code}"
 
-    Logger.add_response(response)
-
-    assert response.status_code == expected_status, f"Status code error: Expected:{expected_status};" \
-                                                    f" Actual:{response.status_code}"
-
-    return response
+        return response
 

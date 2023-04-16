@@ -6,7 +6,6 @@ from requests import Response
 logger = logging.getLogger(__name__)
 
 
-
 class Logger:
     @classmethod
     def add_log(cls, log):
