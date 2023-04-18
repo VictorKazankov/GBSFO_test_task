@@ -1,12 +1,8 @@
 from pytest import mark
 
-from credentials import name_user, token_user
+from data import name_user, headers, repository
 from helpers.assertions import Assertions
-from helpers.base_case import BaseCase
-
-headers = {"Authorization": f"Bearer {token_user}", "Accept": "application/vnd.github+json"}
-
-repository = "python_api_training"
+from libs.api import ApiService
 
 wrong_user_name = "my_wrong_user_23"
 wrong_branch_name = "wrong_branch"
@@ -20,24 +16,23 @@ expected_repositories = ['amadeus_test', 'at.info-knowledge-base', 'ATE', 'Autom
                          'pikabu', 'pomodoro', 'pyTest', 'python_api_training', 'Python_training',
                          'Python_training_mantis', 'SeleniumTest1']
 
-expected_branches = ["master", "2-th_version_framework", "test_branch1"]
+expected_branches = ["main", "test_branch1", "test_branch2"]
 
 
-class TestRepositories(BaseCase):
+class TestRepositories:
 
     def test_get_all_repositories(self):
         endpoint = f"/users/{name_user}/repos"
 
-        response = self.perform_request(endpoint, headers)
+        response = ApiService.get(endpoint=endpoint, headers=headers)
 
         Assertions.assert_code_status(response, 200)
         Assertions.assert_name_repositories(response, expected_repositories)
 
     def test_get_all_branches_from_repository(self):
-
         endpoint = f"/repos/{name_user}/{repository}/branches"
 
-        response = self.perform_request(endpoint, headers)
+        response = ApiService.get(endpoint=endpoint, headers=headers)
 
         Assertions.assert_code_status(response, 200)
         Assertions.assert_name_branches(response, expected_branches)
@@ -45,11 +40,9 @@ class TestRepositories(BaseCase):
     @mark.parametrize("incorrect_repository_name", [f"{wrong_repository}", ""],
                       ids=["wrong_repository", "empty_repository"])
     def test_get_all_branches_from_repository_with_incorrect_repository_name(self, incorrect_repository_name):
-
         endpoint = f"/repos/{name_user}/{incorrect_repository_name}/branches"
 
-        response = self.perform_request(endpoint, headers)
+        response = ApiService.get(endpoint=endpoint, headers=headers)
 
         Assertions.assert_code_status(response, 404)
         Assertions.assert_message_response(response, 'Not Found')
-

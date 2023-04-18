@@ -8,6 +8,14 @@ class ApiService:
     def get(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
         return ApiService._send(endpoint, data, headers, cookies, "GET")
 
+    @staticmethod
+    def post(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        return ApiService._send(endpoint, data, headers, cookies, "POST")
+
+    @staticmethod
+    def delete(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        return ApiService._send(endpoint, data, headers, cookies, "DELETE")
+
     #################
     @staticmethod
     def _send(endpoint: str, data: dict, headers: dict, cookies: dict, method: str):
@@ -23,6 +31,10 @@ class ApiService:
 
         if method == 'GET':
             response = requests.get(endpoint_url, params=data, headers=headers, cookies=cookies)
+        elif method == 'POST':
+            response = requests.post(endpoint_url, json=data, headers=headers, cookies=cookies)
+        elif method == 'DELETE':
+            response = requests.delete(endpoint_url, json=data, headers=headers, cookies=cookies)
         else:
             raise Exception(f"Bad HTTP method '{method}' was received")
 
