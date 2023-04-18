@@ -7,12 +7,8 @@ logger = logging.getLogger(__name__)
 
 
 class Logger:
-    @classmethod
-    def add_log(cls, log):
-        logger.info(log)
-
-    @classmethod
-    def add_request(cls, url: str, data: dict, headers: dict, cookies: dict, method: str):
+    @staticmethod
+    def add_request(url: str, data: dict, headers: dict, cookies: dict, method: str):
         testname = os.environ.get('PYTEST_CURRENT_TEST')
 
         data_to_add = f"\n-----\n"
@@ -26,8 +22,8 @@ class Logger:
 
         logger.info(data_to_add)
 
-    @classmethod
-    def add_response(cls, response: Response):
+    @staticmethod
+    def add_response(response: Response):
         data_to_add = f"Response status code: {response.status_code}\n"
         data_to_add += f"Response data: {response.text}\n"
         data_to_add += f"Response headers: {response.headers}\n"

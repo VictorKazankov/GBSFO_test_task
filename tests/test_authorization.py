@@ -1,6 +1,6 @@
 from pytest import mark
 
-from data import token_user
+from user_data import token_user
 from helpers.assertions import Assertions
 from libs.api import ApiService
 

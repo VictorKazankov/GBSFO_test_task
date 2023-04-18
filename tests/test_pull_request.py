@@ -1,4 +1,4 @@
-from data import name_user, repository, headers, headers_for_another_user
+from user_data import name_user, repository, headers, headers_for_another_user
 from helpers.assertions import Assertions
 from helpers.utils import random_string, json_to_python_object
 from libs.api import ApiService
