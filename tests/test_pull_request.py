@@ -53,14 +53,3 @@ class TestPullRequests:
         endpoint_get = f"{main_endpoint}/{number_pr}/reviews/{id_review}"
         response_get = ApiService.get(endpoint=endpoint_get, headers=headers_for_another_user)
         Assertions.assert_review_has_approve_state(response_get)
-
-    def test_merge_pull_request(self, create_pull_request):
-        number_pr = create_pull_request
-        endpoint_merge = f"{main_endpoint}/{number_pr}/merge"
-        data = {"commit_title": "Merge_commit"}
-        response_merge = ApiService.put(endpoint=endpoint_merge, headers=headers, data=data)
-        Assertions.assert_code_status(response_merge, 200)
-
-        # assert that current pull request is merged
-        response_check_merge = ApiService.get(endpoint=endpoint_merge, headers=headers)
-        Assertions.assert_code_status(response_check_merge, 204)

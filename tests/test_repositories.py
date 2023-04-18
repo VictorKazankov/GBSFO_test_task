@@ -24,7 +24,7 @@ expected_branches = ["main", "test_branch1", "test_branch2"]
 class TestRepositories:
 
     def test_get_all_repositories(self):
-        endpoint = f"/users/{name_user}/repos?per_page=100" # here display 100 repositories on page
+        endpoint = f"/users/{name_user}/repos?per_page=100"  # here display 100 repositories on page
 
         response = ApiService.get(endpoint=endpoint, headers=headers)
 
