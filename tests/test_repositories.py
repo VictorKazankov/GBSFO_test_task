@@ -11,10 +11,12 @@ wrong_repository = "my_wrong_repository"
 expected_repositories = ['amadeus_test', 'at.info-knowledge-base', 'ATE', 'AutomationProjects-24-server-',
                          'awesome-computer-vision', 'booking_test', 'BoxingTime', 'ChatBot', 'data', 'dogecodes-repo',
                          'FinalProject', 'Final_project_python_selenium', 'GBSFO_test_task', 'git-demo',
-                         'git-repo-geekbrains', 'git-repo-geekbrains2', 'HomeTask', 'ironpython_training', 'java_ptf',
-                         'LearnQA_PythonAPI', 'mastering-pycharm-course', 'MyHometaskForGoJava', 'MyWorkProjects',
-                         'pikabu', 'pomodoro', 'pyTest', 'python_api_training', 'Python_training',
-                         'Python_training_mantis', 'SeleniumTest1']
+                         'git-repo-geekbrains', 'git-repo-geekbrains2', 'HomeTask', 'ironpython_training',
+                         'java_ptf', 'LearnQA_PythonAPI', 'mastering-pycharm-course', 'MyHometaskForGoJava',
+                         'MyWorkProjects', 'pikabu', 'pomodoro', 'pyTest', 'python_api_training', 'Python_training',
+                         'Python_training_mantis', 'SeleniumTest1', 'Spoon-Knife', 'stepic_automation_python_course',
+                         'TestForYandex', 'TestGIT', 'testing-python-apps', 'TestPrestashopSite', 'TestRepository',
+                         'TestSeleniumUI', 'TM', 'UserBrowsermobProxy', 'VictorKazankov2', 'Winium', 'WorkProjects']
 
 expected_branches = ["main", "test_branch1", "test_branch2"]
 
@@ -22,7 +24,7 @@ expected_branches = ["main", "test_branch1", "test_branch2"]
 class TestRepositories:
 
     def test_get_all_repositories(self):
-        endpoint = f"/users/{name_user}/repos"
+        endpoint = f"/users/{name_user}/repos?per_page=100" # here display 100 repositories on page
 
         response = ApiService.get(endpoint=endpoint, headers=headers)
 
