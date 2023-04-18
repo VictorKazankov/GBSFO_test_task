@@ -12,11 +12,12 @@ expected_repositories = ['amadeus_test', 'at.info-knowledge-base', 'ATE', 'Autom
                          'awesome-computer-vision', 'booking_test', 'BoxingTime', 'ChatBot', 'data', 'dogecodes-repo',
                          'FinalProject', 'Final_project_python_selenium', 'GBSFO_test_task', 'git-demo',
                          'git-repo-geekbrains', 'git-repo-geekbrains2', 'HomeTask', 'ironpython_training',
-                         'java_ptf', 'LearnQA_PythonAPI', 'mastering-pycharm-course', 'MyHometaskForGoJava',
-                         'MyWorkProjects', 'pikabu', 'pomodoro', 'pyTest', 'python_api_training', 'Python_training',
-                         'Python_training_mantis', 'SeleniumTest1', 'Spoon-Knife', 'stepic_automation_python_course',
-                         'TestForYandex', 'TestGIT', 'testing-python-apps', 'TestPrestashopSite', 'TestRepository',
-                         'TestSeleniumUI', 'TM', 'UserBrowsermobProxy', 'VictorKazankov2', 'Winium', 'WorkProjects']
+                         'java_ptf', 'LearnQA_PythonAPI', 'markdown-doc', 'mastering-pycharm-course',
+                         'MyHometaskForGoJava', 'MyWorkProjects', 'pikabu', 'pomodoro', 'pyTest', 'python_api_training',
+                         'Python_training', 'Python_training_mantis', 'SeleniumTest1', 'Spoon-Knife',
+                         'stepic_automation_python_course', 'TestForYandex', 'TestGIT', 'testing-python-apps',
+                         'TestPrestashopSite', 'TestRepository', 'TestSeleniumUI', 'TM', 'UserBrowsermobProxy',
+                         'VictorKazankov2', 'Winium', 'WorkProjects']
 
 expected_branches = ["main", "test_branch1", "test_branch2"]
 
