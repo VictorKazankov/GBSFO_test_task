@@ -6,7 +6,6 @@ from data import repository, headers, name_user
 from helpers.utils import random_string
 from libs.api import ApiService
 
-new_branch = "my_branch"
 
 
 @fixture
@@ -48,3 +47,18 @@ def create_branch_with_commit():
     # delete branch
     endpoint_del_branch = f"/repos/{name_user}/{repository}/git/refs/heads/{new_branch}"
     ApiService.delete(endpoint=endpoint_del_branch, headers=headers)
+
+
+@fixture()
+def create_pull_request(create_branch_with_commit):
+    new_branch_name = create_branch_with_commit
+    pull_request_data = {
+        'title': f'New_PR_{random_string}',
+        'body': 'Please pull this in!',
+        'head': f'{new_branch_name}',
+        'base': 'main'
+    }
+    endpoint = f"/repos/{name_user}/{repository}/pulls"
+    response_post = ApiService.post(endpoint=endpoint, headers=headers, data=pull_request_data)
+    response_text = json.loads(response_post.text)
+    yield response_text["number"]

@@ -41,3 +41,12 @@ class Assertions:
         all_pull_requests = [pr["title"] for pr in response_get_text]
 
         assert title_new_pr in all_pull_requests
+
+    @staticmethod
+    def assert_not_present_pull_req_in_pull_req_list(response_get, response_patch):
+        title_new_pr = json.loads(response_patch.text)["title"]
+
+        response_get_text = json.loads(response_get.text)
+        all_pull_requests = [pr["title"] for pr in response_get_text]
+
+        assert title_new_pr not in all_pull_requests

@@ -27,3 +27,26 @@ class TestPullRequests:
 
         response_get = ApiService.get(endpoint=endpoint, headers=headers)  # for get all PRs
         Assertions.assert_present_pull_req_in_pull_req_list(response_get, response_post)
+
+    def test_close_pull_request(self, create_pull_request):
+        number_pr = create_pull_request
+        endpoint_close = f"{endpoint}/{number_pr}"
+
+        data = {"state": "closed"}
+
+        response_patch = ApiService.patch(endpoint=endpoint_close, headers=headers, data=data)
+        Assertions.assert_code_status(response_patch, 200)
+
+        response_get = ApiService.get(endpoint=endpoint, headers=headers)  # for get all PRs
+        Assertions.assert_not_present_pull_req_in_pull_req_list(response_get, response_patch)
+
+    def test_merge_pull_request(self, create_pull_request):
+        number_pr = create_pull_request
+        endpoint_merge = f"{endpoint}/{number_pr}/merge"
+        data = {"commit_title": f"Merge_commit_{random_string}"}
+        response_merge = ApiService.put(endpoint=endpoint_merge, headers=headers, data=data)
+        Assertions.assert_code_status(response_merge, 200)
+
+        # assert that current pull request is merged
+        response_check_merge = ApiService.get(endpoint=endpoint_merge, headers=headers)
+        Assertions.assert_code_status(response_check_merge, 204)

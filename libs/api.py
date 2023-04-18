@@ -13,6 +13,14 @@ class ApiService:
         return ApiService._send(endpoint, data, headers, cookies, "POST")
 
     @staticmethod
+    def put(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        return ApiService._send(endpoint, data, headers, cookies, "PUT")
+
+    @staticmethod
+    def patch(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        return ApiService._send(endpoint, data, headers, cookies, "PATCH")
+
+    @staticmethod
     def delete(endpoint: str, data: dict = None, headers: dict = None, cookies: dict = None):
         return ApiService._send(endpoint, data, headers, cookies, "DELETE")
 
@@ -33,8 +41,12 @@ class ApiService:
             response = requests.get(endpoint_url, params=data, headers=headers, cookies=cookies)
         elif method == 'POST':
             response = requests.post(endpoint_url, json=data, headers=headers, cookies=cookies)
+        elif method == 'PUT':
+            response = requests.put(endpoint_url, json=data, headers=headers, cookies=cookies)
+        elif method == 'PATCH':
+            response = requests.patch(endpoint_url, json=data, headers=headers, cookies=cookies)
         elif method == 'DELETE':
-            response = requests.delete(endpoint_url, json=data, headers=headers, cookies=cookies)
+            response = requests.delete(endpoint_url, data=data, headers=headers, cookies=cookies)
         else:
             raise Exception(f"Bad HTTP method '{method}' was received")
 
